@@ -1,0 +1,2 @@
+# exercises
+Inf Bachelor Exercises
