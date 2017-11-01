@@ -28,32 +28,33 @@ Klavier spielen
 27
 
 '''
+# Input prompt
 hobby_person = eval(input("--> "))
 if hobby_person > 255:
     print("Schwimmen")
 else:
-    if hobby_person <= 255 and hobby_person > 128:
+    if hobby_person <= 255 and hobby_person >= 128:
         print("Naehen")
         hobby_person -= 2**7
-    if hobby_person <= 128 and hobby_person > 64:
+    if hobby_person < 128 and hobby_person >= 64:
         print ("Klavier spielen")
         hobby_person -= 2**6
-    if hobby_person <= 64 and hobby_person > 32:
+    if hobby_person < 64 and hobby_person >= 32:
         print("Fußball spielen")
         hobby_person -= 2**5
-    if hobby_person <= 32 and hobby_person > 16:
+    if hobby_person < 32 and hobby_person >= 16:
         print("Laufen")
         hobby_person -= 2**4
-    if hobby_person <= 16 and hobby_person > 8:
+    if hobby_person < 16 and hobby_person >= 8:
         print("Kochen")
         hobby_person -= 2**3
-    if hobby_person <= 8 and hobby_person > 4:
+    if hobby_person < 8 and hobby_person >= 4:
         print("Angeln")
         hobby_person -= 2**2
-    if hobby_person <= 4 and hobby_person > 2:
+    if hobby_person < 4 and hobby_person >= 2:
         print("Brettspiele")
         hobby_person -= 2**1
-    if hobby_person <= 2 and hobby_person > 0:
+    if hobby_person < 2 and hobby_person > 0:
         print("Schwimmen")
         hobby_person -= 2**0
 print(hobby_person)
