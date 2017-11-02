@@ -1,0 +1,49 @@
+'''
+Warm-Up mit Kontrollstrukturen Punkte: / 5
+(a) (2 Punkte) Schreiben Sie ein Python 3.6 
+Programm, welches einen Satz vom Benutzer entgegen nimmt und bestimmt, ob dieser ein Pangramm ist, d. h.
+ob er alle Buchstaben des Alphabets (ohne Sonderzeichen) mindestens einmal
+enth¨alt – unabh¨angig von Groß- oder Kleinschreibung. Nutzen Sie built-in String
+Funktionen! (Die Dokumentation solcher Funktionen finden Sie hier:
+
+input(SATZ)
+PANGRAM_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+                'n','o','p','q','r','s','t','u','v','w','x','y','z']
+zyxwvutsrqponmlkjihgfedcba
+
+TO DO
+Create for-loop that clears the input list from all numbers and signs
+'''
+#  pangram_list as the benchmark to compare the input against. As of now,
+pangram_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+                'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+                'w', 'x', 'y', 'z']
+
+#  Lists num and special_signs for the signs that I want deleted from
+#  my list
+nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+special_signs = ["-", "!", "?", ",", "'", ";", ".", "ä", "ö", "ü", "ß"]
+
+#  User_prompt is the potential pangramm
+user_prompt = input("--> ")
+
+#  Turn all individual characters into lowercase 
+user_prompt = user_prompt.lower()
+
+#  list() turns the user_prompt miraculously into a list
+#  set() gets rid of the duplicates
+user_prompt_list = list(set(user_prompt))
+
+#  Sorts my pretty list
+user_prompt_list.sort()
+print(user_prompt_list)
+
+#  If-condition for successful comparison
+if pangram_list == user_prompt_list:
+    print("jawoll!")
+
+#  Else-condition for unsuccessful comparison
+else:
+    print("nein!")
+
+#  Why does this not work? user_prompt_list_sorted = sorted(user_prompt_list)
