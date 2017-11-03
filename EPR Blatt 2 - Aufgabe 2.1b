@@ -1,0 +1,22 @@
+#  user_num is user input number from 0 including to 999
+user_num = int(input("--> "))
+#  Creating a set() of the input string for later testing for digit 3
+user_num_ordered = set(str(user_num))
+#  cross sum of input int()
+cross_sum = sum(int(digit) for digit in str(user_num))
+#  if condition to check for division by 3
+#  Question: why does 'if cross_sum / 3 == y for y in range(0, 10, 1):' not work?
+if cross_sum % 3 == 0 and user_num % 7 == 0:
+    print("fizzbuzz")
+elif cross_sum % 3 == 0:
+    print("fizz")
+elif user_num % 7 == 0:
+    print("buzz")
+elif "3" in set(str(user_num_ordered)):
+    print("fizz")
+else:
+    print(user_num)
+
+#  Ok, modulo solves like...many problems....
+if user_num % 7 == 0:
+    print("buzz")
