@@ -18,16 +18,44 @@ Create for-loop that clears the input list from all numbers and signs
 pangram_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
                 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
                 'w', 'x', 'y', 'z']
-
-#  Lists num and special_signs for the signs that I want deleted from
-#  my list
+'''
+Lists num and special_signs for the signs that I want deleted from
+my list. This is would be much shorter and prettier but don't know how 
+to implement.
 nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 special_signs = ["-", "!", "?", ",", "'", ";", ".", "ä", "ö", "ü", "ß"]
+'''
 
-#  User_prompt is the potential pangramm
+#  User_prompt is the the potential pangramm
 user_prompt = input("--> ")
+#  Getting rid of the whitespaces
+user_prompt = user_prompt.replace(' ', '')
+#  Getting rid of the full stop
+user_prompt = user_prompt.replace('.', '')
+#  Getting rid of the colon
+user_prompt = user_prompt.replace(':', '')
+#  Getting rid of the exclamation mark
+user_prompt = user_prompt.replace('!', '')
+#  Getting rid of the question mark
+user_prompt = user_prompt.replace('?', '')
+#  Getting rid of the semicolon
+user_prompt = user_prompt.replace(';', '')
+#  Getting rid of the comma
+user_prompt = user_prompt.replace(',', '')
+#  Getting rid of the hyphen
+user_prompt = user_prompt.replace('-', '')
+#  Getting rid of the Umlauts and sharp s
+user_prompt = user_prompt.replace('ä', '')
+user_prompt = user_prompt.replace('ü', '')
+user_prompt = user_prompt.replace('ö', '')
+user_prompt = user_prompt.replace('ß', '')
+#  Getting rid of the quotation marks
+user_prompt = user_prompt.replace('"', '')
+user_prompt = user_prompt.replace('“', '')
+user_prompt = user_prompt.replace('„', '')
+user_prompt = user_prompt.replace("'",'')
 
-#  Turn all individual characters into lowercase 
+#  Turn all individual characters into lowercase because it doesnt matter.
 user_prompt = user_prompt.lower()
 
 #  list() turns the user_prompt miraculously into a list
@@ -36,7 +64,6 @@ user_prompt_list = list(set(user_prompt))
 
 #  Sorts my pretty list
 user_prompt_list.sort()
-print(user_prompt_list)
 
 #  If-condition for successful comparison
 if pangram_list == user_prompt_list:
@@ -45,5 +72,3 @@ if pangram_list == user_prompt_list:
 #  Else-condition for unsuccessful comparison
 else:
     print("nein!")
-
-#  Why does this not work? user_prompt_list_sorted = sorted(user_prompt_list)
