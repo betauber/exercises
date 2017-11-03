@@ -1,0 +1,32 @@
+#  user_num is user input number from 0 including to 999
+user_num = int(input("--> "))
+#  Creating a set() of the input string for later testing for digit 3
+user_num_ordered = set(str(user_num))
+#  cross sum of input int()
+cross_sum = sum(int(digit) for digit in str(user_num))
+
+#  Variables to maintain overview. fizzbuzz's conditions.
+condition_division_3 = cross_sum % 3
+condition_division_7 = user_num % 7
+digit_3 = "3" in user_num_ordered
+digit_7 = "7" in user_num_ordered
+
+#  if conditions to check for fizzbuzz
+#  Question: why does 'if cross_sum / 3 == y for y in range(0, 10, 1):' not work?
+if condition_division_3 == 0 and condition_division_7 == 0:
+    print("fizzbuzz")
+elif condition_division_3 and digit_7:
+    print("fizzbuzz")
+elif digit_3 and condition_division_7:
+    print("fizzbuzz")
+elif digit_3 and digit_7:
+    print("fizzbuzz")
+
+elif cross_sum % 3 == 0:
+    print("fizz")
+elif user_num % 7 == 0:
+    print("buzz")
+elif "3" in set(str(user_num)):
+    print("fizz")
+else:
+    print(user_num)
