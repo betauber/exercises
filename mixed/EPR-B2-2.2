@@ -1,0 +1,33 @@
+__author__ = "5184262: Dominik Ploner"
+import decimal
+from decimal import *
+
+grade = float(0.0)
+pregrade = 0.0
+gender = "w"
+height = 0
+student_2 = input("")
+pregrade = float(student_2[0:3])
+gender = str(student_2[4])
+height = int(student_2[6:9])
+
+if height < 100 or height > 300:
+    print("ERROR")
+    raise SystemExit
+else:
+    pass
+if gender == "w":
+    grade = pregrade - 0.4
+else:
+    grade = pregrade
+if height >= 180:
+    grade_2 = (height - 180) * 0.05 + grade
+else:
+    pass
+if grade_2 < 1.0:
+    grade_2 = 1.0
+elif grade_2 > 4.0:
+    grade_2 = 5.0
+getcontext().prec = 3
+Decimal(grade_2)
+print(grade_2)
