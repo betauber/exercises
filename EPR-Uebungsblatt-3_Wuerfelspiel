@@ -1,0 +1,67 @@
+Aufgabe 3.1: Allgemeiner Kommentar  / 20
+Wir wollen uns mit dieser Aufgabe intensiv mit Funktionen und Prozeduren besch¨aftigen.
+In Ihrer Python Installation sind sehr viele vorgefertigte Pakete in der sogenannten
+”Standard Library“ enthalten, die man unbedingt benutzen sollte, wenn sie zur
+Probleml¨osung beitragen k¨onnen. Viele Funktionen sind in C programmiert, erscheinen
+jetzt aber einem ”Python Kleidchen“, sind aber trotzdem entsprechend effizient.
+Informieren Sie sich gr¨undlich
+1. ¨ubersichtsartig dar¨uber, was es so alles in der ”Python Standard Library“ gibt,
+siehe https://docs.python.org/3/library/index.html
+2. speziell ¨uber den Modul random, siehe https://docs.python.org/3/library/
+random.html
+
+
+
+Aufgabe 3.2: Das Spiel
+”16-ist-tot“ ist ein Knobelspiel, das h¨aufig in Kneipen gespielt wird. Oft ist der
+Einsatz das Bezahlen der n¨achsten Runde. Gew¨urfelt wird reihum mit einem W¨urfel.
+Jeder Spieler darf solange w¨urfeln, wie er will, dieW¨urfe werden summiert und notiert.
+Danach wird der Knobelbecher weiter gereicht. Ziel ist es, durch mehrmaligesW¨urfeln und aufsummieren der W¨urfelergebnisse so nahe an 16 zu kommen wie m¨oglich. Wer
+16 oder mehr erreicht, hat sofort verloren – das Spiel ist beendet. Es gelten folgende
+Sonderregeln:
+• Wer als Summenpunkte 9 erreicht, darf nicht mehr w¨urfeln. Der n¨achste Spieler
+kommt dran.
+• Wer als Summenpunkte 10 erreicht, muss noch einmal werfen. Erfolgt im programmierten
+Spiel automatisch nach drei Sekunden Wartezeit.
+Hat keiner der Spieler direkt verloren (also in Summe 16 oder mehr Punkte erreicht),
+so verliert(en) diejenigen, die am wenigsten Punkte erreicht haben.
+
+
+
+Aufgabe 3.3: Implementierung Punkte: / 13
+Implementieren Sie dieses Spiel!
+(a) (4 Punkte) Implementieren Sie eine Funktion roll dice(number=1, faces=6,
+seed=None).
+Diese Funktion gibt einen String zur¨uck, in dem die gew¨urfelten Zahlen im Intervall
+[1..faces] durch Komma getrennt stehen. Es wird mit number W¨urfeln (number
+im Intervall [1,10]) gew¨urfelt, je mit faces Fl¨achen. faces ist aus dem Intervall
+[2,100] zu w¨ahlen. Bei jedem W¨urfel soll die Verteilung der Zahlen m¨oglichst
+gleichverteilt sein und im Intervall [1,faces] liegen. seed ist eine Float-Zahl, die
+dem Quasi-Zufallszahlen Generator von Python als Parameter ¨ubergeben wird.
+Dies wird genutzt, um W¨urfelergebnisse wiederholbar (d.h. reproduzierbar) zu
+machen.
+(b) (4 Punkte) Implementieren Sie eine Funktion roll cheating dice(). Modifizieren
+Sie dabei den W¨urfelwurf eines elektronischen W¨urfel mit 6 Fl¨achen (nur
+diesen!) so, dass die Zahl 3 relativ mit der doppelten Wahrscheinlichkeit erscheint,
+wie die anderen f¨unf Zahlen.
+(c) (5 Punkte) Implementieren Sie eine Funktion sixteen is dead(players), welche
+den Ablauf des gesamten Spiels implementiert. players bezeichnet dabei die
+Anzahl an Spielern
+
+
+
+Aufgabe 3.4: User Interface Punkte: / 4
+Entwickeln Sie eine einfache Benutzungsschnittstelle auf Konsolenebene, die sich
+durch Tastatureingaben bedienen l¨asst. Diese soll folgende M¨oglichkeiten bieten:
+1. Dem Benutzer zu Beginn mittleilen, was g¨ultige Eingaben sind und was diese
+bewirken. Dabei soll Eingabe <Return> das erneute W¨urfeln bewirken. Das Weiterreichen
+des Knobelbechers zeigt man durch die Eingabe von n (f¨ur next) an.
+2. Kennzeichnung, welcher Spieler gerade am Zug ist,
+3. dem Benutzer des Spieles die M¨oglichkeit zu bieten, das Spiel jederzeit zu beenden
+oder eine neue Runde zu starten,
+
+
+
+Aufgabe 3.5: Fehlerbehandlung Punkte: / 3
+Ihr User Interface soll robust angelegt sein, sodass falsche Eingaben des Benutzers
+nicht zu einem Absturz f¨uhren.
