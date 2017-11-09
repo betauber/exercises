@@ -16,7 +16,8 @@ Aufgabe 3.2: Das Spiel
 ”16-ist-tot“ ist ein Knobelspiel, das h¨aufig in Kneipen gespielt wird. Oft ist der
 Einsatz das Bezahlen der n¨achsten Runde. Gew¨urfelt wird reihum mit einem W¨urfel.
 Jeder Spieler darf solange w¨urfeln, wie er will, dieW¨urfe werden summiert und notiert.
-Danach wird der Knobelbecher weiter gereicht. Ziel ist es, durch mehrmaligesW¨urfeln und aufsummieren der W¨urfelergebnisse so nahe an 16 zu kommen wie m¨oglich. Wer
+Danach wird der Knobelbecher weiter gereicht. Ziel ist es, durch mehrmaligesW¨urfeln 
+und aufsummieren der W¨urfelergebnisse so nahe an 16 zu kommen wie m¨oglich. Wer
 16 oder mehr erreicht, hat sofort verloren – das Spiel ist beendet. Es gelten folgende
 Sonderregeln:
 • Wer als Summenpunkte 9 erreicht, darf nicht mehr w¨urfeln. Der n¨achste Spieler
@@ -40,6 +41,66 @@ gleichverteilt sein und im Intervall [1,faces] liegen. seed ist eine Float-Zahl,
 dem Quasi-Zufallszahlen Generator von Python als Parameter ¨ubergeben wird.
 Dies wird genutzt, um W¨urfelergebnisse wiederholbar (d.h. reproduzierbar) zu
 machen.
+
+#  Import module necessary for the RNG
+import random
+#  User input to initiate the iterations
+next_roll = input("Bitte druecke N für ein Spiel mit maximal 10 Wuerfen. ")
+
+def roll_dice(numbers, faces=6, seed=None):
+    """Rolls the dice.
+
+    numbers is amount of rolls.
+    round_of_rolls is the actual iteration the player is in.
+    faces is number of sides of the die.
+    seed is baseline value to check pseudo-random."""
+
+    #  Starting value for iterations. The counter for the while-loop.
+    round_of_rolls = 0
+    #  Sum of all consecutive iterations.
+    roll_total = 0
+    #  while loop to set the number of iterations.
+    while round_of_rolls < numbers:
+        #  Faces of the die. faces+1 due to the way range counts.
+        #  List created to enable random.choice.
+        die_faces = list(range(1, faces+1, 1))
+        #  TODO: Not sure how to implement seed=None.
+        seed = None
+        #  The result of the current iteration's roll.
+        #  Done by randomly choosing an item in the list die_faces.
+        roll_result = random.choice(die_faces)
+        #  Updating the counter.
+        round_of_rolls += 1
+        #  Assigning strings to variables to shorten the line-length one below.
+        player_roll = "Der Spieler hat bei Wurf"
+        #  Printing the result of the current roll.
+        print(player_roll, round_of_rolls, "eine", roll_result, "gewuerfelt!")
+        #  Updating the player's current total.
+        roll_total += roll_result
+        #  Printing the player's current total.
+        print("Insgesamt macht das", roll_total, "Augen")
+        #  If-condition that specifies the lose-condition of the game.
+        if roll_total >= 16:
+            #  Game Over message.
+            print("Du hast verloren!")
+            #  End loop.
+            break
+    #  TODO: not sure if this is necessary in this specific instance.
+    #  TODO: return allows to use the last value for further operations.
+    #  TODO: Definitely necessary for the actual game because the player can
+    #  TODO: choose to continue or stop.
+    return roll_result
+
+#  If-condition for call to function
+if next_roll == "n":
+    #  Current test-parameters for numbers and faces.
+    roll_dice(10, 6)
+#  Else-condition in case the user fails hard.
+else:
+    print("Du musst schon N druecken!")
+
+
+
 (b) (4 Punkte) Implementieren Sie eine Funktion roll cheating dice(). Modifizieren
 Sie dabei den W¨urfelwurf eines elektronischen W¨urfel mit 6 Fl¨achen (nur
 diesen!) so, dass die Zahl 3 relativ mit der doppelten Wahrscheinlichkeit erscheint,
