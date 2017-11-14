@@ -1,32 +1,64 @@
-#  user_num is user input number from 0 including to 999
-user_num = int(input("--> "))
+__author__ = "5184262: Dominik Ploner"
+#  user_num is supposed to be user input number from 1 including to 999
+user_num = str(input("--> "))
+#  Conditions for ERROR message
+if user_num.isdigit():
+    pass
+else:
+    print("ERROR")
+    raise SystemExit
+user_num = int(user_num)
+if user_num < 1:
+    print("ERROR")
+    raise SystemExit
+elif user_num > 999:
+    print("ERROR")
+    raise SystemExit
+else:
+    pass
+
+#  Super stupid work-around but it does the trick
+user_num_2 = int(user_num)
 #  Creating a set() of the input string for later testing for digit 3
 user_num_ordered = set(str(user_num))
-#  cross sum of input int()
-cross_sum = sum(int(digit) for digit in str(user_num))
+'''
+cross sum admittedly taken from 
+https://stackoverflow.com/questions/14939953/sum-the-digits-of-a-number-python;
+Description of what happens here and how I understand it after a few hours:
+sum() for summing the iterable
+int(digit) for digit in str(user_num) -> this is the iterable of sum(). 
+digit recognizes the numbers in the string. 
+int(digit) transforms the digits into integers.
+for digit in str(user_num) iterates over the digits in the string just like 
+Krömker iterated over the string "Python" in the lecture. Iteration happens
+left to right. In conclusion, in this instance the built-in sum() function 
+iterates over the strings of the input, which - if the input consists of 
+numbers - results in the cross sum.
+'''
+cross_sum = sum(int(digit) for digit in str(user_num_2))
 
-#  Variables to maintain overview. fizzbuzz's conditions.
+#  Variables to maintain overview.
 condition_division_3 = cross_sum % 3
-condition_division_7 = user_num % 7
-digit_3 = "3" in user_num_ordered
-digit_7 = "7" in user_num_ordered
+condition_division_7 = user_num_2 % 7
 
-#  if conditions to check for fizzbuzz
-#  Question: why does 'if cross_sum / 3 == y for y in range(0, 10, 1):' not work?
+
+#  if conditions to check for fizzbuzz.
+#  Q: Why does 'if cross_sum / 3 == y for y in range(0, 10, 1):' not work?
 if condition_division_3 == 0 and condition_division_7 == 0:
     print("fizzbuzz")
-elif condition_division_3 and digit_7:
+elif condition_division_3 == 0 and "7" in set(str(user_num_2)):
     print("fizzbuzz")
-elif digit_3 and condition_division_7:
+elif "3" in set(str(user_num_2)) and condition_division_7 == 0:
     print("fizzbuzz")
-elif digit_3 and digit_7:
+elif "3" in set(str(user_num_2)) and "7" in set(str(user_num_2)):
     print("fizzbuzz")
-
 elif cross_sum % 3 == 0:
     print("fizz")
-elif user_num % 7 == 0:
+elif user_num_2 % 7 == 0:
     print("buzz")
-elif "3" in set(str(user_num)):
+elif "3" in set(str(user_num_2)):
     print("fizz")
+elif "7" in set(str(user_num_2)):
+    print("buzz")
 else:
-    print(user_num)
+    print(user_num_2)
