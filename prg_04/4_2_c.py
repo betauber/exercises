@@ -17,8 +17,11 @@ def string_list_to_number_list(list_of_strings):
 
 
 def list_to_number(list_of_numbers):
-    return int(''.join(map(str, list_of_numbers)))
+    #return int(''.join(map(str, list_of_numbers)))
+    return int(''.join([str(x) for x in list_of_numbers]))
 
 
 input_string = 'eins,zwei,drei'
-print(input_string_to_number(input_string))
+result = input_string_to_number(input_string)
+print(result)
+print(type(result))
