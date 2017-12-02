@@ -36,3 +36,11 @@ class Lift():
             waiting_time += abs(location - target)
             location = target
         return waiting_time
+
+    def take_lift_to(self, target_floor):
+        if self.current_floor == target_floor:
+            return 0
+        # We will grant each passenger to take the lift immediately
+        # TODO: Change this later / apply rulese
+        self.queue.insert(0, target_floor)
+        return abs(self.current_floor - target_floor)

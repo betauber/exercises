@@ -59,30 +59,11 @@ class LiftTest(unittest.TestCase):
         self.assertEqual(1, actual_waiting_time_for_passenger1)
         self.assertEqual(9, actual_waiting_time_for_passenger2)
 
-
-
-    # def test_call_lift__should_be_9_due_to_other_rider_after_one_tick(self):
-    #     # Both passengers are calling the lift within 1 tick (time unit)
-    #     self.under_test.call_lift(5)
-    #     self.under_test.tick()
-    #     actual_passenger1_waiting_time = self.under_test.waiting_time(5)
-    #
-    #     actual_passenger2_waiting_time = self.under_test.call_lift(10)
-    #     self.assertEqual(5, actual_passenger1_waiting_time)
-    #     self.assertEqual(9, actual_passenger2_waiting_time)
-
-    # def test__ride_lift_to__should_be_5(self):
-    #     actual_riding_time = self.under_test.ride_lift_to(5)
-    #     self.assertEqual(5, actual_riding_time)
-
-    # def test_call_lift__should_be_10_due_to_other_rider(self):
-    #     # Both passengers are calling the lift at the same time
-    #     actual_passenger1_waiting_time = self.under_test.call_lift(5)
-    #     actual_passenger2_waiting_time = self.under_test.call_lift(10)
-    #     self.assertEqual(5, actual_passenger1_waiting_time)
-    #     self.assertEqual(10, actual_passenger2_waiting_time)
-    #
-
+    def test_take_elevator_to__same_floor(self):
+        target_floor = 0
+        # It might come up that the travel time changes
+        actual_travel_time = self.under_test.take_lift_to(target_floor)
+        self.assertEqual(0, actual_travel_time)
 
 if __name__ == '__main__':
     unittest.main()
