@@ -10,15 +10,22 @@ class Elevator:
             self.tick()
 
     def tick(self):
+        self.__handle_movement()
+        self.__check_for_arrival_on_floor()
+        self.__check_for_next_request()
+
+    def __handle_movement(self):
         if self.is_riding_up():
             self.floor += 1
         elif self.is_riding_down():
             self.floor -= 1
 
+    def __check_for_arrival_on_floor(self):
         if self.floor == self.queue_in_current_direction[0]:
             self.queue_in_current_direction.pop(0)
             # TODO: Elevator arrives at requested floor event
 
+    def __check_for_next_request(self):
         if self.__has_requests_in_current_direction():
             pass
         elif self.__has_requests_in_opposite_direction():
