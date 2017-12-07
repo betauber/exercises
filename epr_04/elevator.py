@@ -1,4 +1,7 @@
 class Elevator:
+    __DIRECTION_UP = 'up'
+    __DIRECTION_DOWN = 'down'
+
     def __init__(self, floor=0):
         self.floor = floor
         self.direction = None
@@ -34,10 +37,10 @@ class Elevator:
             self.__set_elevator_to_idling()
 
     def is_riding_up(self):
-        return self.direction == 'up'
+        return self.direction == Elevator.__DIRECTION_UP
 
     def is_riding_down(self):
-        return self.direction == 'down'
+        return self.direction == Elevator.__DIRECTION_DOWN
 
     def __has_requests_in_current_direction(self):
         return len(self.queue_in_current_direction) > 0
@@ -46,10 +49,10 @@ class Elevator:
         return len(self.queue_in_opposite_direction) > 0
 
     def __turn_and_handle_requests_of_opposite_direction(self):
+        self.direction = self.__switch_direction(self.direction)
         self.queue_in_current_direction = self.queue_in_opposite_direction
-        self.queue_in_current_direction.sort(reverse=True) # TODO: OK or not reverse?
+        self.__sort_list_by_direction(self.queue_in_current_direction, self.direction)
         self.queue_in_opposite_direction = []
-        self.__switch_direction(self.direction)
 
     def __set_elevator_to_idling(self):
         assert not self.__has_requests_in_current_direction()
@@ -60,12 +63,12 @@ class Elevator:
         self.__handle_call(self.__get_direction(), target_floor)
 
     def call_up(self, callers_floor):
-        self.__handle_call('up', callers_floor)
+        self.__handle_call(Elevator.__DIRECTION_UP, callers_floor)
 
     def call_down(self, callers_floor):
-        self.__handle_call('down', callers_floor)
+        self.__handle_call(Elevator.__DIRECTION_DOWN, callers_floor)
 
-    def __handle_call(self, direction ,callers_floor):
+    def __handle_call(self, direction, callers_floor):
         if callers_floor == self.floor:
             return
         if self.__can_handle_request_without_turning(direction, callers_floor):
@@ -85,7 +88,7 @@ class Elevator:
 
     def __add_floor_request_in_direction(self, floor):
         self.queue_in_current_direction.append(floor)
-        self.queue_in_current_direction.sort()
+        self.__sort_list_by_direction(self.queue_in_current_direction, self.direction)
 
     def __add_floor_request_in_opposite_direction(self, floor):
         self.queue_in_opposite_direction.append(floor)
@@ -94,12 +97,21 @@ class Elevator:
         self.direction = direction
 
     def __switch_direction(self, old_direction):
-        if self.__get_direction() == 'up':
-            self.__set_direction('down')
-        elif self.__get_direction() == 'down':
-            self.__set_direction('up')
+        if old_direction == Elevator.__DIRECTION_UP:
+            return Elevator.__DIRECTION_DOWN
+        elif old_direction == Elevator.__DIRECTION_DOWN:
+            Elevator.__DIRECTION_UP
         else:
             raise Exception("Cannot switch direction if direction is %o" % self.__get_direction())
 
     def __get_direction(self):
         return self.direction
+
+    def __sort_list_by_direction(self, to_be_sorted_list, direction):
+        assert isinstance(to_be_sorted_list, list)
+        if direction == Elevator.__DIRECTION_UP:
+            to_be_sorted_list.sort()
+        elif direction == Elevator.__DIRECTION_DOWN:
+            to_be_sorted_list.sort(reverse=True)
+        else:
+            raise Exception("Cannot sort list when direction is %o" % direction)
