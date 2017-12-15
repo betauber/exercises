@@ -62,24 +62,23 @@ class PahTumTest(unittest.TestCase):
             if self.tile_on_same_axis(tiles[i - 1], tiles[i], axis) \
                     and self.consecutive_tiles(tiles[i - 1], tiles[i], self.flip_axis(axis)):
                 chain += 1
-                if i == player_tile_count - 1:
-                    chains.append(chain)
+                self.is_last_tile(chain, chains, i, player_tile_count)
             else:
                 chains.append(chain)
                 chain = 1
-                if i == player_tile_count - 1:
-                    chains.append(chain)
+                self.is_last_tile(chain, chains, i, player_tile_count)
 
         return chains
+
+    def is_last_tile(self, chain, chains, i, player_tile_count):
+        if i == player_tile_count - 1:
+            chains.append(chain)
 
     def tile_on_same_axis(self, tile1, tile2, axis):
         return tile1[axis] == tile2[axis]
 
     def consecutive_tiles(self, tile1, tile2, axis):
         return tile1[axis] + 1 == tile2[axis]
-
-    def chain_at_end_of_tiles(self, chain, i, player_tile_count):
-        return chain >= 3 and i == player_tile_count - 2
 
     def flip_axis(self, axis):
         return 1 if axis == 0 else 0
