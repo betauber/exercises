@@ -4,6 +4,10 @@ import abc
 
 
 class PahTumBase(metaclass=abc.ABCMeta):
+    GAME_GRID_DIMENSION = 7
+    GAME_BLOCKED_STONE_MIN = 5
+    GAME_BLOCKED_STONE_MAX = 13
+    STONE_BLOCKED = -1
     STONE_EMPTY = 0
     STONE_PLAYER_1 = 1
     STONE_PLAYER_2 = 2
@@ -23,10 +27,10 @@ class PahTumBase(metaclass=abc.ABCMeta):
         :param position: (x,y) tuple
         :return: The stone at the the given position
         """
+
     @abc.abstractmethod
     def is_empty(self, position):
         """
-
         :param position:
         :return:
         """
@@ -34,12 +38,14 @@ class PahTumBase(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def count_points(self):
         """
-
         :return:
         """
 
+    def get_other_player(self, stone):
+        return PahTumBase.STONE_PLAYER_1 if stone == PahTumBase.STONE_PLAYER_2 else PahTumBase.STONE_PLAYER_2
+
     def place_stone(self, stone, position):
-        if not self.is_empty(position) or not self._is_valid(stone):
+        if not self._is_valid_position(position) or not self.is_empty(position) or not self._is_valid_stone(stone):
             return False
         else:
             self._set_stone(position, stone)
@@ -54,15 +60,21 @@ class PahTumBase(metaclass=abc.ABCMeta):
         :return:
         """
 
-    def _is_valid(self, stone):
-        # Common protected method validating stones
-        return stone == PahTum.STONE_PLAYER_1 or stone == PahTum.STONE_PLAYER_2
+    def _is_valid_stone(self, stone):
+        return stone == PahTum.STONE_PLAYER_1 or stone == PahTum.STONE_PLAYER_2 or stone == PahTumBase.STONE_BLOCKED
+
+    def _is_valid_position(self, position):
+        assert isinstance(position, tuple)
+        return 0 <= position[0] < PahTumBase.GAME_GRID_DIMENSION and 0 <= position[1] < PahTumBase.GAME_GRID_DIMENSION
 
 
 class PahTum(PahTumBase):
 
-    def __init__(self):
-        self.grid = pd.DataFrame(np.zeros(7 * 7, dtype='int32').reshape((7, 7)))
+    def __init__(self, blocked_stone_count=5):
+        #assert PahTumBase.GAME_BLOCKED_STONE_MIN <= blocked_stone_count <= PahTumBase.GAME_BLOCKED_STONE_MAX
+        #assert blocked_stone_count % 2 == 1
+        self.grid = pd.DataFrame(np.zeros(PahTumBase.GAME_GRID_DIMENSION * PahTumBase.GAME_GRID_DIMENSION, dtype='int32').reshape((PahTumBase.GAME_GRID_DIMENSION, PahTumBase.GAME_GRID_DIMENSION)))
+        self._place_blocked_stones(blocked_stone_count)
 
     def __str__(self):
         return self.grid.__str__()
@@ -116,5 +128,10 @@ class PahTum(PahTumBase):
     def _set_stone(self, position, stone):
         self.grid.iloc[position] = stone
 
-
-
+    def _place_blocked_stones(self, blocked_stone_count):
+        blocked_stones_placed = 0
+        while blocked_stones_placed < blocked_stone_count:
+            random_position = tuple(np.random.randint(PahTumBase.GAME_GRID_DIMENSION, size=2))
+            placement_successful = self.place_stone(PahTumBase.STONE_BLOCKED, random_position)
+            if placement_successful:
+                blocked_stones_placed += 1
