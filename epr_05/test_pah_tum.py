@@ -48,11 +48,22 @@ class PahTumTest(unittest.TestCase):
         # print(self.under_test)
 
     def test__calc_points(self):
-        player_occupied_tiles = [(1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 8), (1, 9), (3, 0), (3, 1), (3, 4)]
-        player_chains = self.calc_points(player_occupied_tiles, 0)
-        print(player_chains)
+        player_1_tiles = [(1, 1), (1, 2), (1, 3), (1, 4), (1, 6), (1, 7), (1, 8), (1, 9), (3, 0), (3, 1), (3, 4)]
+        player_1_points = self.calc_points(player_1_tiles)
+        print(player_1_points)
 
-    def calc_points(self, tiles, axis):
+        # Same for player 2
+
+    def calc_points(self, player_tiles):
+        row_axis = 0
+        column_axis = 1
+        player_chains = []
+        player_chains.extend(self.calc_chains_per_axis(player_tiles, row_axis))
+        player_chains.extend(self.calc_chains_per_axis(player_tiles, column_axis))
+        player_points = self.calc_points_from_chains(player_chains)
+        return player_points
+
+    def calc_chains_per_axis(self, tiles, axis):
         chains = []
         chain = 1
         i = 0
@@ -82,6 +93,35 @@ class PahTumTest(unittest.TestCase):
 
     def flip_axis(self, axis):
         return 1 if axis == 0 else 0
+
+    def calc_points_from_chains(self, player_chains):
+        points = 0
+        points_per_chain_length = {1: 0, 2: 0, 3: 3, 4: 10, 5: 25, 6: 56, 7: 119}
+        for chain in player_chains:
+            points += points_per_chain_length[chain]
+        return points
+
+    def test__print_grid(self):
+        cell_content = {(0, 0): "X"}
+        grid = self.draw_grid(cell_content)
+        # print(grid)
+
+    def draw_grid(self, cell_content):
+        row_string = "\n | 0 | 1 | 2 | 3 | 4 | 5 | 6 |\n"
+        for row in range(7):
+            row_string += str(row)
+            for column in range(7):
+                row_string += "| "
+                row_string += self.parse_cell_content(row, column, cell_content)
+                row_string += " "
+            row_string += "|\n"
+        return row_string
+
+    def parse_cell_content(self, row, column, cell_content):
+        if (row, column) in cell_content:
+            return cell_content[(row, column)]
+        else:
+            return " "
 
 
 if __name__ == '__main__':
